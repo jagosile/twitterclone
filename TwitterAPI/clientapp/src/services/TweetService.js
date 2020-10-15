@@ -26,6 +26,21 @@ export default new (class TweetService {
     return result;
   } 
 
+  async Tweets() {
+    const path = "/api/tweets/tweets";
+    let result = null;
+    await Vue.prototype.$axios
+      .get(path)
+      .then((response) => {
+        result = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return result;
+  }
+
   
       
 

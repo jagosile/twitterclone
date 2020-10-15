@@ -7,6 +7,7 @@ using Domain.Model;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Services
@@ -53,6 +54,12 @@ namespace Application.Services
             return true;
 
 
+        }
+
+        public async Task<List<Tweet>> Tweets()
+        {
+            var tweets = await _context.Tweets.OrderByDescending(x => x.PostDate).ToListAsync();
+            return tweets;
         }
     }
 }

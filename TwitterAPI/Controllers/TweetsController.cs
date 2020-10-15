@@ -49,6 +49,13 @@ namespace TwitterAPI.Controllers
             return Ok();
         }
 
+        [HttpGet(Name = "tweets")]
+        public async Task<ActionResult<List<Tweet>>> Tweets()
+        {
+            var tweets = await _twitterService.Tweets();
+            return tweets;
+        }
+
         [HttpPost]
         public async Task<ActionResult<bool>> Create([FromBody]  CreateTweetRequest createTweetRequest)
         {

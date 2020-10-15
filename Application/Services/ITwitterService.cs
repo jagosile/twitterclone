@@ -1,5 +1,6 @@
 ﻿using Application.DTO.Account;
 using Domain.Model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -7,5 +8,8 @@ namespace Application.Services
     public interface ITwitterService
     {
         Task<bool> CreateTweet(CreateTweetRequest createTweetRequest);
+
+        Task<List<Tweet>> Tweets();
+
     }
 }
