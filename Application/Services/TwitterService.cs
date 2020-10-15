@@ -48,6 +48,7 @@ namespace Application.Services
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 return false;
             }
 
@@ -86,6 +87,7 @@ namespace Application.Services
             }
             catch(Exception e)
             {
+                _logger.LogError(e.Message);
                 return false;
             }
             return true;
@@ -94,7 +96,24 @@ namespace Application.Services
 
         public async Task<bool> Subscribe(string userId)
         {
-            await Task.Delay(100);
+            var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+            var userToSubscribeTo = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            var sub = new Subscription
+            {
+                IdentityUser = user,
+                Subscriber = userToSubscribeTo
+            };
+
+            _context.Subscriptions.Add(sub);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return false;
+            }
             return true;
         }
     }

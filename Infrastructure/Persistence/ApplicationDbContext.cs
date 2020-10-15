@@ -18,6 +18,7 @@ namespace Infrastructure.Persistence
 
 
         public DbSet<Tweet> Tweets { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
