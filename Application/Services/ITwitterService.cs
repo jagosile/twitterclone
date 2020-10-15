@@ -11,5 +11,7 @@ namespace Application.Services
 
         Task<List<TweetDTO>> Tweets();
 
+        Task<bool> DeleteTweet(int tweetId);
+
     }
 }

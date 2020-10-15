@@ -75,5 +75,20 @@ namespace Application.Services
                 .OrderByDescending(x => x.Created).ToListAsync();
             return tweets;
         }
+
+        public async Task<bool> DeleteTweet(int tweetId)
+        {
+            var tweet = await _context.Tweets.FirstOrDefaultAsync(x => x.Id == tweetId);
+            _context.Tweets.Remove(tweet);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

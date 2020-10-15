@@ -49,12 +49,21 @@ namespace TwitterAPI.Controllers
             return Ok();
         }
 
+        [HttpGet("{tweetId}", Name = "delete")]
+        public async Task<ActionResult<bool>> Delete(int tweetId)
+        {
+            var result = await _twitterService.DeleteTweet(tweetId);
+            return result;
+        }
+
         [HttpGet(Name = "tweets")]
         public async Task<ActionResult<List<TweetDTO>>> Tweets()
         {
             var tweets = await _twitterService.Tweets();
             return tweets;
         }
+
+
 
         [HttpPost]
         public async Task<ActionResult<bool>> Create([FromBody]  CreateTweetRequest createTweetRequest)
@@ -63,13 +72,7 @@ namespace TwitterAPI.Controllers
             return result;
         }
 
-        [HttpGet("{tweetId}", Name = "delete")]
-        public async Task<ActionResult<IdentityResult>> Delete(int tweetId)
-        {
-            await Task.Delay(100);
-            return Ok();
-        }
-
+   
 
 
 

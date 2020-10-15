@@ -41,6 +41,21 @@ export default new (class TweetService {
     return result;
   }
 
+  async Delete(id) {
+    const path = `/api/tweets/delete/${id}`;
+    let result = null;
+    await Vue.prototype.$axios
+      .get(path)
+      .then((response) => {
+        result = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return result;
+  }
+
   
       
 
