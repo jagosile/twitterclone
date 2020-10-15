@@ -1,0 +1,8 @@
+Tre delar:
+
+- Frontend (HTML/JAVASCRIPT/VUE)
+- Backend (.NET Core Web Api)
+- Databas (RDS)
+
+
+Fontend ---https port 80/443---> backend ----3306---> EC2 RDS
