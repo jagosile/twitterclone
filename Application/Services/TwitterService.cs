@@ -182,6 +182,21 @@ namespace Application.Services
 
         }
 
-       
+        public async Task<bool> DeleteSubscriptions(List<int> subscriptions)
+        {
+            var subs = _context.Subscriptions.Where(x => subscriptions.Contains(x.Id));
+            _context.Subscriptions.RemoveRange(subs);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return false;
+            }
+            return true;
+
+        }
     }
 }

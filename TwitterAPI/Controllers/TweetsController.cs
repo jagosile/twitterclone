@@ -84,6 +84,13 @@ namespace TwitterAPI.Controllers
             return subscriptions;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<bool>> DeleteSubscriptions([FromBody] List<int> subscriptions)
+        {
+            var tweets = await _twitterService.DeleteSubscriptions(subscriptions);
+            return tweets;
+        }
+
 
 
 

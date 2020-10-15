@@ -10,12 +10,13 @@ namespace Application.Services
         Task<bool> Create(CreateTweetRequest createTweetRequest);
 
         Task<List<TweetDTO>> Tweets();
-        Task<List<TweetDTO>> Tweets(List<string> Users);
+        Task<List<TweetDTO>> Tweets(List<string> users);
 
         Task<bool> Delete(int tweetId);
         Task<bool> Subscribe(string userId);
         Task<bool> DeleteSubscribe(string userId);
 
         Task<List<SubscriptionDTO>> Subscriptions();
+        Task<bool> DeleteSubscriptions(List<int> subscriptions);
     }
 }

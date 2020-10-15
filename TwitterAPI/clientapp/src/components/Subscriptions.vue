@@ -3,7 +3,7 @@
          <v-autocomplete
             v-model="selected"
             :items="subscriptions"
-            item-value="subscriber.id"
+            return-object
             item-text="subscriber.email"
             outlined
             dense
@@ -26,6 +26,26 @@
            </template>
           
           </v-autocomplete>
+
+          <v-snackbar
+      v-model="snackbar"
+      color="primary"
+      v-if="snackbar"
+    >
+      {{ status }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+          
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
 </div>
 </template>
 
@@ -47,6 +67,7 @@ import tweetService from "@/services/TweetService"
     data: () => ({
       dialog: false,
       status: "",
+      snackbar: false,
       subscriptions: [],
       selected: []
     }),
@@ -69,14 +90,17 @@ import tweetService from "@/services/TweetService"
         },
         async filter(val){
           if(val.length > 0) {
-           await this.$store.dispatch('tweet/loadTweetsByUser', val );
+           await this.$store.dispatch('tweet/loadTweetsByUser', val.map(x => x.subscriber.id));
           }
           else{
             await this.$store.dispatch('tweet/loadTweets');
           }
         },
-        unsubscribe(){
-          alert(1)
+        async unsubscribe(){
+          const result = await tweetService.DeleteSubscriptions(this.selected.map( x => x.id))
+          this.status = result ?  "You have unsubscribed to the users" : "Could not unsubscribe" 
+          this.snackbar = true
+
         }
 
         

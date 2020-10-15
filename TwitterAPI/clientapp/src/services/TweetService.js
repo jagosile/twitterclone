@@ -59,6 +59,24 @@ export default new (class TweetService {
     return result;
   }
 
+  async DeleteSubscriptions(data) {
+    const path = "/api/tweets/deletesubscriptions";
+    let result = null;
+    await Vue.prototype.$axios({
+      url: path,
+      method: "post",
+      data: data,
+    })
+    .then((response) => {
+      result = response.data;
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return result;
+  }
+
   async Delete(id) {
     const path = `/api/tweets/delete/${id}`;
     let result = null;
@@ -73,6 +91,8 @@ export default new (class TweetService {
 
     return result;
   }
+
+
 
   async Subscribe(id) {
     const path = `/api/tweets/subscribe/${id}`;
