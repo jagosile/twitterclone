@@ -1,29 +1,9 @@
 <template>
   <div>
-    <!-- <v-navigation-drawer v-model="drawer" app>
-      <v-list dense>
-        <v-list-item link to="/home">
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-email</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer> -->
  
     <v-app-bar app color="primary" dark dense>
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
-      <v-toolbar-title>SMART Target</v-toolbar-title>
+      <v-toolbar-title>Twitter Clone</v-toolbar-title>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
    <v-btn icon class="ml-5"
@@ -35,30 +15,7 @@
         </template>
           <span>Home</span>
       </v-tooltip>
-       <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-   <v-btn icon 
-          to="/map"
-           v-bind="attrs"
-            v-on="on">
-        <v-icon>mdi-map-marker-radius</v-icon>
-      </v-btn>   
-        </template>
-                <span>Target</span>
-      </v-tooltip>
-       <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-   <v-btn icon 
-          to="/dashboard"
-            v-bind="attrs"
-            v-on="on">
-        <v-icon>mdi-chart-bar</v-icon>
-      </v-btn>           
-            </template>
-                <span>Dashboard</span>
-      </v-tooltip>
       <v-spacer></v-spacer>
-      {{ owner.name }} |
     {{ user.data.name }}
       <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
@@ -104,10 +61,7 @@ export default {
   computed: {
     user() {
       return this.$store.getters["auth/user"];
-    },
-    owner() {
-      return this.$store.getters["owner/owner"];
-    }    
+    } 
   },
   methods:{
           async Logout() {

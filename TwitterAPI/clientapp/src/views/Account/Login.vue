@@ -138,9 +138,8 @@ export default {
       this.loading = false;
       if(this.status){
           setTimeout( () => {
-              alert("redirect to home")
-              // this.$router.replace({ name: "home" });
-                  //push to:/home
+              //alert("redirect to home")
+              this.$router.replace({ name: "home" });
           }, 1000);
       }
       

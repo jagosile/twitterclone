@@ -9,7 +9,7 @@ export default new (class AccountService {
 
 
   async Authenticated() {
-    const path = "/api/accounts/Authenticated";
+    const path = "/api/accounts/authenticated";
     let result = null;
     await Vue.prototype.$axios
       .get(path)

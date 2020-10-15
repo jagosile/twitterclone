@@ -10,8 +10,12 @@ using Application.DTO;
 using Application.DTO.Account;
 using Application.Services;
 using Domain.Model;
+using Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -20,28 +24,49 @@ namespace TwitterAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AccountsController : ControllerBase
     {
 
         private readonly ILogger<AccountsController> _logger;
         private readonly IConfiguration _configuration;
         private readonly ITwitterService _twitterService;
+        private readonly ApplicationDbContext _context;
 
 
 
         public readonly UserManager<IdentityUser> _userManager;
         public readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountsController(ILogger<AccountsController> logger, IConfiguration configuration, ITwitterService twitterService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountsController(ILogger<AccountsController> logger, IConfiguration configuration, ITwitterService twitterService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context)
         {
             _logger = logger;
             _configuration = configuration;
             _twitterService = twitterService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
+         [HttpGet]
+        public async Task<ActionResult<ApplicationUser>> Authenticated()
+        {
+            var username = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+            var user = await _context.Users
+                .Select(x => new ApplicationUser { Id = x.Id, Email = x.Email, Name = x.UserName })
+                .FirstOrDefaultAsync(x => x.Name == username);
+
+
+            var claims = await (from uc in _context.UserClaims
+                                where uc.UserId == user.Id
+                                select Int32.Parse(uc.ClaimValue)).ToListAsync();
+
+            return user;
+        }
+
+
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<UserToken>> Login(LoginRequest loginRequest)
         {
            var result = await _signInManager.PasswordSignInAsync(loginRequest.Email, loginRequest.Password, true, true);
@@ -54,6 +79,7 @@ namespace TwitterAPI.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<IdentityResult>> Create([FromBody] CreateUserRequest createUserRequest)
         {
             var identityUser = new IdentityUser
@@ -71,7 +97,7 @@ namespace TwitterAPI.Controllers
             public DateTime Expiration { get; set; }
         }
 
-        public UserToken BuildToken(ILoginRequest loginRequest)
+        private UserToken BuildToken(ILoginRequest loginRequest)
         {
             var claims = new List<Claim>()
             {

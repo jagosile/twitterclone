@@ -8,13 +8,23 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "login",
+    redirect: "home",
     meta: { requiresLogin: false },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Account/Login.vue"),
+      import(/* webpackChunkName: "login" */ "../views/Home.vue"),
+  },
+  {
+    path: "/home",
+    name: "home",
+    meta: { requiresLogin: true },
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/Home.vue"),
   },
   {
     path: "/login",

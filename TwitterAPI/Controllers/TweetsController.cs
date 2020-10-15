@@ -10,6 +10,8 @@ using Application.DTO;
 using Application.DTO.Account;
 using Application.Services;
 using Domain.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,7 @@ namespace TwitterAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TweetsController : ControllerBase
     {
 
@@ -39,7 +42,7 @@ namespace TwitterAPI.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpGet("userId}", Name = "delete")]
+        [HttpGet("{userId}", Name = "subscribe")]
         public async Task<ActionResult> Subscribe(string userId)
         {
             await Task.Delay(100);
