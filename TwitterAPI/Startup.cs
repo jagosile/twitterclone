@@ -14,6 +14,8 @@ using Target.Application;
 using Target.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace TwitterAPI
 {
@@ -47,6 +49,9 @@ namespace TwitterAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles(); //
+
             app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseAuthorization();
@@ -54,6 +59,13 @@ namespace TwitterAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            //
+            app.Run(async (context) =>
+            {
+                context.Response.ContentType = "text/html";
+                await context.Response.SendFileAsync(Path.Combine(env.WebRootPath, "index.html"));
             });
         }
     }

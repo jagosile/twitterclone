@@ -30,7 +30,7 @@
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong>Fisk & Co BI CRM AB</strong>
+        {{ new Date().getFullYear() }} — <strong>twitter clone - jagosile</strong>
       </v-card-text>
     </v-card>
   </v-footer>
@@ -40,8 +40,8 @@
   export default {
     data: () => ({
       icons: [
-        {key:1, icon: 'mdi-linkedin', link: "https://se.linkedin.com/company/fisk-co-bi-crm-ab"},
-        {key:2, icon: 'mdi-email', link: "mailto:support@fiskco.se"}
+        {key:1, icon: 'mdi-linkedin', link: ""},
+        {key:2, icon: 'mdi-email', link: ""}
       ],
     }),
   }
