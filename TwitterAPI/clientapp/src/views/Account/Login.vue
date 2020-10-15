@@ -97,7 +97,7 @@
 
 
 <script>
-// import Vue from 'vue'
+import Vue from 'vue'
 import accountService from "@/services/AccountService";
 import loginfooter from "@/components/navigation/LoginFooter";
 import signupform from "../../components/account/Signup"
@@ -123,15 +123,15 @@ export default {
       this.showAlert = false;
       this.loading = true;
       const response = await accountService.Login(this.email, this.password);
-      if (!response.succeeded) {
+      if (!response) {
         this.status = false;
         this.statusText = "Wrong username or password";
       }
       else{
       this.status = true
       this.statusText = "You will soon be redirected";
-      // this.$store.dispatch('auth/setCredentials', response.token);
-      // Vue.prototype.$axios.defaults.headers.common["Authorization"] = "Bearer " + response.token;
+      this.$store.dispatch('auth/setCredentials', response.token);
+       Vue.prototype.$axios.defaults.headers.common["Authorization"] = "Bearer " + response.token;
       }
 
       this.showAlert = true;

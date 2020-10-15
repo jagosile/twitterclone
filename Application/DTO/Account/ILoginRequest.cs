@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Application.DTO
+namespace Application.DTO.Account
 {
-    public class IdentityUserDTO
+    public interface ILoginRequest
     {
         [Required(ErrorMessage = "Email is missing."), EmailAddress(ErrorMessage = "Email is not valid.")]
         public string Email { get; set; }
