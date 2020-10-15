@@ -49,12 +49,12 @@ namespace TwitterAPI.Controllers
         }
 
          [HttpGet]
-        public async Task<ActionResult<ApplicationUser>> Authenticated()
+        public async Task<ActionResult<UserDTO>> Authenticated()
         {
             var username = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             var user = await _context.Users
-                .Select(x => new ApplicationUser { Id = x.Id, Email = x.Email, Name = x.UserName })
-                .FirstOrDefaultAsync(x => x.Name == username);
+                .Select(x => new UserDTO { Id = x.Id, Email = x.Email })
+                .FirstOrDefaultAsync(x => x.Email == username);
 
 
             var claims = await (from uc in _context.UserClaims
