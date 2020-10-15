@@ -77,6 +77,26 @@ namespace Application.Services
             return tweets;
         }
 
+        public async Task<List<TweetDTO>> Tweets(List<string> Users)
+        {
+            var tweets = await _context.Tweets
+                .Where(x => Users.Contains(x.IdentityUser.Id))
+                .Select(x => new TweetDTO
+            {
+                Id = x.Id,
+                Message = x.Message,
+                Created = x.PostDate,
+                User = new UserDTO
+                {
+                    Id = x.IdentityUser.Id,
+                    Email = x.IdentityUser.Email,
+                    Bio = "hello world"
+                }
+            })
+       .OrderByDescending(x => x.Created).ToListAsync();
+            return tweets;
+        }
+
         public async Task<bool> Delete(int tweetId)
         {
             var tweet = await _context.Tweets.FirstOrDefaultAsync(x => x.Id == tweetId);
@@ -144,5 +164,24 @@ namespace Application.Services
             }
             return true;
         }
+
+        public async Task<List<SubscriptionDTO>> Subscriptions()
+        {
+            var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+
+            var subscriptions = await _context.Subscriptions
+                .Where(x => x.IdentityUser.Id == user.Id)
+                .Select(x => new SubscriptionDTO
+                {
+                    Id = x.Id,
+                    Created = x.Created,
+                    Subscriber = new UserDTO { Id = x.Subscriber.Id, Email = x.Subscriber.Email }
+                }).ToListAsync();
+
+            return subscriptions;
+
+        }
+
+       
     }
 }

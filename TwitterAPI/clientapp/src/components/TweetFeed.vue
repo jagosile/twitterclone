@@ -12,6 +12,8 @@
 
 //import tweetService from "@/services/TweetService"
 import tweetcard from "@/components/TweetCard"
+
+
   export default {
       props: {
     tweet: {
@@ -24,7 +26,7 @@ import tweetcard from "@/components/TweetCard"
     },
     data: () => ({
       dialog: false,
-      status: "",
+      // status: "",
     }),
     mounted(){
       this.load()

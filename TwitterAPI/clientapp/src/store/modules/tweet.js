@@ -10,13 +10,16 @@ const tweet = {
     }
   },
   actions: {
-    setTweets({ commit }, data ) {
-      commit("SET_TWEETS", data);
-    },
     async loadTweets({ commit } ) {
+      commit("SET_TWEETS", []);
       let res = await tweetService.Tweets()
       commit("SET_TWEETS", res);
-    },    
+    },  
+    async loadTweetsByUser({ commit }, data ) {
+      commit("SET_TWEETS", []);
+      let res = await tweetService.TweetsByUsers(data)
+      commit("SET_TWEETS", res);
+    },       
   },
   getters: {
     tweets: function(state) {

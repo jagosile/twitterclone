@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-card class="mx-auto" elevation="10" :color="canEdit ? 'cyan' : ''" :dark="canEdit"  max-width="700" :loading="loading" loader-height="10">
     <v-card-title>
       <v-icon large left>mdi-twitter</v-icon>
@@ -32,6 +33,26 @@
       </v-list-item>
     </v-card-actions>
   </v-card>
+ <v-snackbar
+      v-model="snackbar"
+      color="primary"
+      v-if="snackbar"
+    >
+      {{ status }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+          
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
 </template>
 
 
@@ -46,11 +67,13 @@ export default {
   props: {
     tweet: {
       type: Object,
-      default: null
+      default: null,
+      status:  ""
     }
   },
   data: () => ({
     loading:false,
+    snackbar:false
   }),
     computed: {
     user() {
@@ -70,7 +93,10 @@ export default {
     },
     async subscribe(){
       this.loading = true;
-      await tweetService.Subscribe(this.tweet.user.id)
+      let response = await tweetService.Subscribe(this.tweet.user.id)
+      
+  this.status = response ? `You are now subscribing  to ${this.tweet.user.email}}` : `You are already subscribing to ${this.tweet.user.email}`
+  this.snackbar = true;
       this.loading = false;
     }
   }

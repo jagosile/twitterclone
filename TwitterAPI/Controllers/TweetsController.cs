@@ -63,6 +63,13 @@ namespace TwitterAPI.Controllers
             return result;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<List<TweetDTO>>> Tweets(List<string> users)
+        {
+            var tweets = await _twitterService.Tweets(users);
+            return tweets;
+        }
+
         [HttpGet(Name = "tweets")]
         public async Task<ActionResult<List<TweetDTO>>> Tweets()
         {
@@ -70,11 +77,18 @@ namespace TwitterAPI.Controllers
             return tweets;
         }
 
+        [HttpGet(Name = "subscriptions")]
+        public async Task<ActionResult<List<SubscriptionDTO>>> Subscriptions()
+        {
+            var subscriptions = await _twitterService.Subscriptions();
+            return subscriptions;
+        }
 
 
 
 
-   
+
+
 
 
 
