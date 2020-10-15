@@ -41,6 +41,8 @@ namespace Target.Infrastructure
 
           });
 
+            services.AddHttpContextAccessor();
+
             return services;
         }
 

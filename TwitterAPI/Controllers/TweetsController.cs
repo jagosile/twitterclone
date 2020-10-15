@@ -50,10 +50,10 @@ namespace TwitterAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<IdentityResult>> Create([FromBody] CreateUserRequest createUserRequest)
+        public async Task<ActionResult<bool>> Create([FromBody]  CreateTweetRequest createTweetRequest)
         {
-            await Task.Delay(100);
-            return Ok();
+            var result = await _twitterService.CreateTweet(createTweetRequest);
+            return result;
         }
 
         [HttpGet("{tweetId}", Name = "delete")]

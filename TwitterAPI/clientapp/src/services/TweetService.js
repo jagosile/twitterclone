@@ -1,0 +1,35 @@
+import Vue from "vue";
+
+
+
+
+
+
+export default new (class TweetService {
+
+
+  async Create(message) {
+    const path = "/api/tweets/create";
+    let result = null;
+    await Vue.prototype.$axios({
+      url: path,
+      method: "post",
+      data: {body: message},
+    })
+      .then((response) => {
+        result = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return result;
+  } 
+
+  
+      
+
+  
+  
+
+})();

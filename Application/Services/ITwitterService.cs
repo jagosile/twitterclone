@@ -1,9 +1,11 @@
-﻿using Domain.Model;
+﻿using Application.DTO.Account;
+using Domain.Model;
+using System.Threading.Tasks;
 
 namespace Application.Services
 {
     public interface ITwitterService
     {
-        ApplicationUser HelloWorld(int value);
+        Task<bool> CreateTweet(CreateTweetRequest createTweetRequest);
     }
 }
