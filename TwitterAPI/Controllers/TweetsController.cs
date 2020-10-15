@@ -92,6 +92,14 @@ namespace TwitterAPI.Controllers
         }
 
 
+        [HttpGet(Name = "userso")]
+        public async Task<ActionResult<List<UserDTO>>> Users()
+        {
+            var users = await _twitterService.Users();
+            return users;
+        }
+
+
 
 
 

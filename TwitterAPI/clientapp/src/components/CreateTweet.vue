@@ -21,7 +21,7 @@
       </v-icon>
         </v-btn>
       </template>
-      <v-card>
+      <v-card loader-height="10" :loading="loading">
         <v-card-title>
           <span class="headline">New tweet</span>
         </v-card-title>
@@ -86,15 +86,21 @@ import tweetService from "@/services/TweetService"
       dialog: false,
       messagebody: "",
       status: "",
-      snackbar:false
+      snackbar:false,
+      loading:false
     }),
     methods: {
         async tweet(){
+          this.loading = true;
             const response = await tweetService.Create(this.messagebody)
             this.status = response ? "You have just tweeted!" : "Could not create tweet!"
             this.snackbar = true
             if(response)
               this.$store.dispatch('tweet/loadTweets');
+
+              this.loading = false
+              this.messagebody = "";
+              this.dialog = false;
               
         }
         

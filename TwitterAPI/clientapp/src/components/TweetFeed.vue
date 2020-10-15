@@ -5,6 +5,17 @@
       <tweetcard :tweet="t"/>
       </v-col>
     </v-row>
+    <v-row class="justify-center">
+      <v-col cols="4">
+      <v-alert v-if="tweets.length == 0"
+      border="top"
+      color="red lighten-2"
+      dark
+    >
+      Did not find any tweets with current criteria
+    </v-alert>
+      </v-col>
+    </v-row>
 </div>
 </template>
 
@@ -39,7 +50,9 @@ import tweetcard from "@/components/TweetCard"
     methods: {
         async load(){
             //const response = await tweetService.Tweets(this.messagebody)
+            await this.$store.dispatch('util/setLoading', true);
             await this.$store.dispatch('tweet/loadTweets');
+            await this.$store.dispatch('util/setLoading', false);
             
             // this.status = response ? "You have just tweeted!" : "Could not create tweet!"
             // this.snackbar = true

@@ -15,6 +15,15 @@
             </v-card>
           </v-col>    
         </v-row>
+               <v-row class="justify-center" align="center">
+          <v-col cols="4">
+            <v-card>
+              <v-card-text>
+            <searchuser />
+              </v-card-text>
+            </v-card>
+          </v-col>    
+        </v-row>  
         <v-row class="justify-center" align="center">
           <v-col>
             <v-card>
@@ -34,6 +43,7 @@
 import createtweet from "@/components/CreateTweet"
 import tweetfeed from "@/components/TweetFeed"
 import subscriptions from "@/components/Subscriptions"
+import searchuser from "@/components/SearchUser"
 export default {
   props: {
     source: String
@@ -41,7 +51,9 @@ export default {
   components: {
     createtweet,
     tweetfeed,
-    subscriptions
+    subscriptions,
+    searchuser
+
   },
   data: () => ({
 

@@ -18,5 +18,6 @@ namespace Application.Services
 
         Task<List<SubscriptionDTO>> Subscriptions();
         Task<bool> DeleteSubscriptions(List<int> subscriptions);
+        Task<List<UserDTO>> Users();
     }
 }

@@ -88,7 +88,9 @@ export default {
       this.loading = "red";
       await tweetService.Delete(this.tweet.id)
       //trigger refresh
+      await this.$store.dispatch('util/setLoading', true);
       await this.$store.dispatch('tweet/loadTweets');
+      await this.$store.dispatch('util/setLoading', false);
       this.loading = false;
     },
     async subscribe(){

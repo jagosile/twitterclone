@@ -198,5 +198,22 @@ namespace Application.Services
             return true;
 
         }
+
+        public async Task<List<UserDTO>> Users()
+        {
+            var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+
+            var users = await _context.Users
+                .Where(x => x.Id != user.Id)
+                .Select(x => new UserDTO
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    Bio = "hello world"
+                }).ToListAsync();
+
+            return users;
+
+        }
     }
 }
