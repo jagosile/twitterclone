@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" elevation="10"  max-width="700">
+  <v-card class="mx-auto" elevation="10" :color="canEdit ? 'teal' : ''" :dark="canEdit"  max-width="700">
     <v-card-title>
       <v-icon large left>mdi-twitter</v-icon>
       <span class="title font-weight-light">{{tweet.user.email}}</span>
@@ -25,7 +25,7 @@
            <v-btn icon v-if="canEdit">
           <v-icon class="mr-1">mdi-tooltip-edit</v-icon>
            </v-btn>
-          <v-btn icon v-if="!canEdit">
+          <v-btn icon v-if="!canEdit" @click="subscribe">
           <v-icon class="mr-1">mdi-bookmark-plus</v-icon>
            </v-btn>           
         </v-row>
@@ -64,6 +64,9 @@ export default {
     async deleteTweet(){
       await tweetService.Delete(this.tweet.id)
       //trigger refresh
+    },
+    async subscribe(){
+      await tweetService.Subscribe(this.tweet.user.id)
     }
   }
 };

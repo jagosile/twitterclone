@@ -31,7 +31,7 @@ namespace Application.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<bool> CreateTweet(CreateTweetRequest createTweetRequest)
+        public async Task<bool> Create(CreateTweetRequest createTweetRequest)
         {
             var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
             var tweet = new Tweet
@@ -76,7 +76,7 @@ namespace Application.Services
             return tweets;
         }
 
-        public async Task<bool> DeleteTweet(int tweetId)
+        public async Task<bool> Delete(int tweetId)
         {
             var tweet = await _context.Tweets.FirstOrDefaultAsync(x => x.Id == tweetId);
             _context.Tweets.Remove(tweet);
@@ -88,6 +88,13 @@ namespace Application.Services
             {
                 return false;
             }
+            return true;
+        }
+
+
+        public async Task<bool> Subscribe(string userId)
+        {
+            await Task.Delay(100);
             return true;
         }
     }

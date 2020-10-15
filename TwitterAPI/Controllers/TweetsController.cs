@@ -42,17 +42,24 @@ namespace TwitterAPI.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpGet("{userId}", Name = "subscribe")]
-        public async Task<ActionResult> Subscribe(string userId)
+        [HttpPost]
+        public async Task<ActionResult<bool>> Create([FromBody]  CreateTweetRequest createTweetRequest)
         {
-            await Task.Delay(100);
-            return Ok();
+            var result = await _twitterService.Create(createTweetRequest);
+            return result;
         }
 
         [HttpGet("{tweetId}", Name = "delete")]
         public async Task<ActionResult<bool>> Delete(int tweetId)
         {
-            var result = await _twitterService.DeleteTweet(tweetId);
+            var result = await _twitterService.Delete(tweetId);
+            return result;
+        }
+
+        [HttpGet("{userId}", Name = "subscribe")]
+        public async Task<ActionResult<bool>> Subscribe(string userId)
+        {
+            var result = await _twitterService.Subscribe(userId);
             return result;
         }
 
@@ -65,12 +72,7 @@ namespace TwitterAPI.Controllers
 
 
 
-        [HttpPost]
-        public async Task<ActionResult<bool>> Create([FromBody]  CreateTweetRequest createTweetRequest)
-        {
-            var result = await _twitterService.CreateTweet(createTweetRequest);
-            return result;
-        }
+
 
    
 

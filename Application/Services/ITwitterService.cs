@@ -7,11 +7,12 @@ namespace Application.Services
 {
     public interface ITwitterService
     {
-        Task<bool> CreateTweet(CreateTweetRequest createTweetRequest);
+        Task<bool> Create(CreateTweetRequest createTweetRequest);
 
         Task<List<TweetDTO>> Tweets();
 
-        Task<bool> DeleteTweet(int tweetId);
+        Task<bool> Delete(int tweetId);
+        Task<bool> Subscribe(string userId);
 
     }
 }
