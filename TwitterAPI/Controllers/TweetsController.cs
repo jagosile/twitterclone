@@ -50,7 +50,7 @@ namespace TwitterAPI.Controllers
         }
 
         [HttpGet(Name = "tweets")]
-        public async Task<ActionResult<List<Tweet>>> Tweets()
+        public async Task<ActionResult<List<TweetDTO>>> Tweets()
         {
             var tweets = await _twitterService.Tweets();
             return tweets;

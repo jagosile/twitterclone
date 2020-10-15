@@ -1,4 +1,4 @@
-﻿using Application.DTO.Account;
+﻿using Application.DTO;
 using Domain.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,7 +9,7 @@ namespace Application.Services
     {
         Task<bool> CreateTweet(CreateTweetRequest createTweetRequest);
 
-        Task<List<Tweet>> Tweets();
+        Task<List<TweetDTO>> Tweets();
 
     }
 }

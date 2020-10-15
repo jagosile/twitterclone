@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.DTO.Account
+namespace Application.DTO
 {
     public class CreateTweetRequest 
     {

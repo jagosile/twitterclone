@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.DTO;
 using Application.DTO.Account;
 using Domain.Model;
 using Infrastructure.Persistence;
@@ -14,7 +15,7 @@ namespace Application.Services
 {
     public class TwitterService : ITwitterService
     {
-        
+
         private readonly ILogger<TwitterService> _logger;
         private readonly ApplicationDbContext _context;
         public readonly UserManager<IdentityUser> _userManager;
@@ -45,7 +46,7 @@ namespace Application.Services
             {
                 await _context.SaveChangesAsync();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -56,9 +57,21 @@ namespace Application.Services
 
         }
 
-        public async Task<List<Tweet>> Tweets()
+        public async Task<List<TweetDTO>> Tweets()
         {
-            var tweets = await _context.Tweets.OrderByDescending(x => x.PostDate).ToListAsync();
+
+            var tweets = await _context.Tweets.Select(x => new TweetDTO
+            {
+                Id = x.Id,
+                Message = x.Message,
+                Created = x.PostDate,
+                User = new UserDTO
+                {
+                    Id = x.IdentityUser.Id,
+                    Email = x.IdentityUser.Email
+                }
+            })
+                .OrderByDescending(x => x.Created).ToListAsync();
             return tweets;
         }
     }
