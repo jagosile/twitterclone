@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" elevation="10" :color="canEdit ? 'teal' : ''" :dark="canEdit"  max-width="700">
+  <v-card class="mx-auto" elevation="10" :color="canEdit ? 'cyan' : ''" :dark="canEdit"  max-width="700" :loading="loading" loader-height="10">
     <v-card-title>
       <v-icon large left>mdi-twitter</v-icon>
       <span class="title font-weight-light">{{tweet.user.email}}</span>
@@ -50,7 +50,7 @@ export default {
     }
   },
   data: () => ({
-    //
+    loading:false,
   }),
     computed: {
     user() {
@@ -62,12 +62,16 @@ export default {
   },  
   methods:{
     async deleteTweet(){
+      this.loading = "red";
       await tweetService.Delete(this.tweet.id)
       //trigger refresh
       await this.$store.dispatch('tweet/loadTweets');
+      this.loading = false;
     },
     async subscribe(){
+      this.loading = true;
       await tweetService.Subscribe(this.tweet.user.id)
+      this.loading = false;
     }
   }
 };
