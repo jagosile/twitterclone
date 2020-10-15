@@ -9,10 +9,23 @@
             dense
             chips
             small-chips
-            label="Filter feed subscriptions"
+            label="Filter feed by subscriptions"
             multiple
             @input="filter"
-          ></v-autocomplete>
+          >
+           <template v-slot:append-outer>
+             <v-tooltip right>
+      <template v-slot:activator="{ on, attrs }">
+             <v-btn icon v-bind="attrs"
+          v-on="on" @click="unsubscribe">
+              <v-icon>mdi-account-remove</v-icon>
+             </v-btn>
+      </template>
+       <span>Unsubscribe selected</span>
+             </v-tooltip>
+           </template>
+          
+          </v-autocomplete>
 </div>
 </template>
 
@@ -61,7 +74,9 @@ import tweetService from "@/services/TweetService"
           else{
             await this.$store.dispatch('tweet/loadTweets');
           }
-
+        },
+        unsubscribe(){
+          alert(1)
         }
 
         

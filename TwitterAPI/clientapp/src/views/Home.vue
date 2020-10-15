@@ -7,7 +7,7 @@
           <v-col cols="2">
               <createtweet/>
           </v-col>
-          <v-col cols="2">
+          <v-col cols="3">
             <v-card>
               <v-card-text>
             <subscriptions />
