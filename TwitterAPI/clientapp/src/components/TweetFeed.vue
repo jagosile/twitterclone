@@ -1,16 +1,5 @@
 <template>
 <div>
-     <v-btn
-          class="mx-2"
-      fab
-      dark
-      color="success"
-      @click="load"
-        >
-            <v-icon dark>
-        mdi-refresh
-      </v-icon>
-        </v-btn>
     <v-row v-for="t in tweets" :key="t.id">
       <v-col cols="12">
       <tweetcard :tweet="t"/>
@@ -39,7 +28,6 @@ import tweetcard from "@/components/TweetCard"
     }),
     mounted(){
       this.load()
-      alert(this.tweets)
     },
     computed:{
       tweets(){
