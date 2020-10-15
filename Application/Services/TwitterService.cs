@@ -68,7 +68,8 @@ namespace Application.Services
                 User = new UserDTO
                 {
                     Id = x.IdentityUser.Id,
-                    Email = x.IdentityUser.Email
+                    Email = x.IdentityUser.Email,
+                    Bio = "hello world"
                 }
             })
                 .OrderByDescending(x => x.Created).ToListAsync();

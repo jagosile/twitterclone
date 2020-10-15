@@ -1,8 +1,9 @@
 <template>
-  <v-card class="mx-auto" color="#26c6da" dark max-width="700">
+  <v-card class="mx-auto" elevation="10"  max-width="700">
     <v-card-title>
       <v-icon large left>mdi-twitter</v-icon>
       <span class="title font-weight-light">{{tweet.user.email}}</span>
+      <profile :user="tweet.user" />
     </v-card-title>
 
     <v-card-text
@@ -29,8 +30,14 @@
   </v-card>
 </template>
 
+
 <script>
+
+import profile from "@/components/account/Profile"
 export default {
+  components:{
+    profile
+  },
   props: {
     tweet: {
       type: Object,

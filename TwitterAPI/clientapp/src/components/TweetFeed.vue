@@ -24,6 +24,12 @@
 import tweetService from "@/services/TweetService"
 import tweetcard from "@/components/TweetCard"
   export default {
+      props: {
+    tweet: {
+      type: Object,
+      default: null
+    }
+  },
     components: {
       tweetcard
     },

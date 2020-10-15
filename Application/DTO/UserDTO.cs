@@ -8,6 +8,7 @@ namespace Application.DTO
     {
         public string Id { get; set; }
         public string Email { get; set; }
+        public string Bio { get; set; }
         
     }
 }
