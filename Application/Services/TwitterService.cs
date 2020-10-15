@@ -98,6 +98,11 @@ namespace Application.Services
         {
             var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
             var userToSubscribeTo = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+            var existing = await _context.Subscriptions.FirstOrDefaultAsync(x => x.IdentityUser.Id == user.Id && x.Subscriber.Id == userToSubscribeTo.Id);
+            if (existing != null)
+                return false;
+
             var sub = new Subscription
             {
                 IdentityUser = user,
@@ -105,6 +110,29 @@ namespace Application.Services
             };
 
             _context.Subscriptions.Add(sub);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> DeleteSubscribe(string userId)
+        {
+            var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+            var userToSubscribeTo = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+            var existing = await _context.Subscriptions.FirstOrDefaultAsync(x => x.IdentityUser.Id == user.Id && x.Subscriber.Id == userToSubscribeTo.Id);
+            if (existing == null)
+                return false;
+                   
+
+            _context.Subscriptions.Remove(existing);
             try
             {
                 await _context.SaveChangesAsync();

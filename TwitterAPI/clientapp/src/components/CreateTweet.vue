@@ -93,6 +93,9 @@ import tweetService from "@/services/TweetService"
             const response = await tweetService.Create(this.messagebody)
             this.status = response ? "You have just tweeted!" : "Could not create tweet!"
             this.snackbar = true
+            if(this.status)
+              this.$store.dispatch('tweet/loadTweets');
+              
         }
         
 

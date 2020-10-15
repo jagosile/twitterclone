@@ -13,6 +13,7 @@ namespace Application.Services
 
         Task<bool> Delete(int tweetId);
         Task<bool> Subscribe(string userId);
+        Task<bool> DeleteSubscribe(string userId);
 
     }
 }

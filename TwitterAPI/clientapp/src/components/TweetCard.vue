@@ -64,6 +64,7 @@ export default {
     async deleteTweet(){
       await tweetService.Delete(this.tweet.id)
       //trigger refresh
+      await this.$store.dispatch('tweet/loadTweets');
     },
     async subscribe(){
       await tweetService.Subscribe(this.tweet.user.id)

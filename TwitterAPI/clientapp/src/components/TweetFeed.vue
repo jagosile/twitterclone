@@ -21,7 +21,7 @@
 
 <script>
 
-import tweetService from "@/services/TweetService"
+//import tweetService from "@/services/TweetService"
 import tweetcard from "@/components/TweetCard"
   export default {
       props: {
@@ -36,16 +36,21 @@ import tweetcard from "@/components/TweetCard"
     data: () => ({
       dialog: false,
       status: "",
-
-      tweets: []
     }),
     mounted(){
       this.load()
+      alert(this.tweets)
+    },
+    computed:{
+      tweets(){
+        return this.$store.getters["tweet/tweets"]; 
+      }
     },
     methods: {
         async load(){
-            const response = await tweetService.Tweets(this.messagebody)
-            this.tweets = response
+            //const response = await tweetService.Tweets(this.messagebody)
+            await this.$store.dispatch('tweet/loadTweets');
+            
             // this.status = response ? "You have just tweeted!" : "Could not create tweet!"
             // this.snackbar = true
         }
