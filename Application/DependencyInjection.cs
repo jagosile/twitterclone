@@ -21,7 +21,7 @@ namespace Target.Application
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder
-                        .WithOrigins("http://localhost:8080")
+                        .WithOrigins("http://localhost:8080", "http://ithslab1.us-east-2.elasticbeanstalk.com", "https://ithslab1.us-east-2.elasticbeanstalk.com")
                         .AllowAnyMethod()
                         .AllowCredentials()
                         .AllowAnyHeader());
